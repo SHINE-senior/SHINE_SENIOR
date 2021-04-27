@@ -50,6 +50,9 @@ flutter:
   assets:
      - images/senior_maytan.PNG
      - images/arrow.png
+     - images/may_tan.png
+     - images/monitoring.PNG
+     - images/statistics.PNG
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

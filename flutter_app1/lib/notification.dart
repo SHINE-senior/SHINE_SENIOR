@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
-import 'statistics.dart';
+//import 'proximity.dart';
+import 'confirmation.dart';
+//import 'sos-popup-screen.dart';
 
-
-void main() {
-  runApp(MaterialApp(
-    home: Statistics(),
-  ));
-}
-/*
-class Notification extends StatefulWidget {
+class notification extends StatefulWidget {
   @override
-  _NotificationState createState() => _NotificationState();
+  _notificationState createState() => _notificationState();
 }
 
-class _NotificationState extends State<Notification> {
+class _notificationState extends State<notification> {
 
   String grpval1 = '';
   String grpval2 = '';
@@ -33,9 +28,9 @@ class _NotificationState extends State<Notification> {
         centerTitle: true,
         backgroundColor: Colors.white,
       ),
-        body: Padding(
-          padding: const EdgeInsets.fromLTRB(15,20,15,10),
-          child: ListView(
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(15,20,15,10),
+        child: ListView(
             shrinkWrap: true,
             children: [Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,10 +46,10 @@ class _NotificationState extends State<Notification> {
                 ),*/
                 SizedBox(height: 40),
                 Text(
-                'Please confirm your phone number and emailid you would like to be contacted in case of emergency',
-                style: TextStyle(
-                  fontSize: 20,
-                  )
+                    'Please confirm your phone number and emailid you would like to be contacted in case of emergency',
+                    style: TextStyle(
+                      fontSize: 20,
+                    )
                 ),
                 SizedBox(height: 60),
                 Text(
@@ -66,14 +61,14 @@ class _NotificationState extends State<Notification> {
                 SizedBox(height: 20),
                 Center(
                   child: Container(
-                    width: 200,
-                    height: 50,
-                    child: TextField(
-                      decoration: InputDecoration(
+                      width: 200,
+                      height: 50,
+                      child: TextField(
+                        decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'Enter Number',
-                      ),
-                    )
+                        ),
+                      )
                   ),
                 ),
                 SizedBox(height: 40),
@@ -185,8 +180,8 @@ class _NotificationState extends State<Notification> {
                 )*/
               ],
             ),]
-          ),
         ),
+      ),
       bottomNavigationBar:  Container(
         height: 40,
         //width: 56,
@@ -195,7 +190,7 @@ class _NotificationState extends State<Notification> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => proximity()),
+              MaterialPageRoute(builder: (context) =>  confirmation()),
             );
           },
           child: Text(
@@ -212,4 +207,3 @@ class _NotificationState extends State<Notification> {
     );
   }
 }
-*/

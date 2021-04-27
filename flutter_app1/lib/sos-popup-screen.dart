@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'proximity.dart';
+import 'confirmation.dart';
+
 /*
 void main() {
   runApp(MyApp());
@@ -188,6 +191,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return SizedBox(
       width: double.infinity, // <-- match_parent
       child: ElevatedButton(
+        style: ButtonStyle( backgroundColor: MaterialStateProperty.all<Color>(Colors.red)),
         onPressed: () {
           Navigator.of(context).pop();
           _addNewAction(text);
@@ -218,7 +222,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         child: Row(
           children: <Widget>[
-            Icon(icon),
+            Icon(icon,color: Colors.red),
             SizedBox(width: 20),
             Text(personCalled, style: TextStyle(color: Colors.red, fontSize: 20, fontWeight: FontWeight.bold) //todo: use pri color
             ),
@@ -241,7 +245,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         child: Row(
           children: <Widget>[
-            Icon(icon),
+            Icon(icon,color: Colors.red),
             SizedBox(width: 20),
             Text(text, style: TextStyle(color: Colors.red, fontSize: 20, fontWeight: FontWeight.bold) //todo: use pri color
             ),
@@ -323,14 +327,51 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SHINE Senior',
+      //title: 'SHINE Senior',
       theme: ThemeData(
         primarySwatch: Colors.red, //may need to change it
         textTheme: TextTheme(
-          headline4: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          //headline4: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
       ),
       home: Scaffold(
+        appBar: AppBar(
+          leading: (
+              IconButton(
+                icon: Icon(Icons.arrow_back_ios_rounded, color: Colors.black),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => confirmation()),
+                  );
+                },
+              )
+          ),
+          title: Text(
+              'Dashboard',
+              style: TextStyle(
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              )
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          actions: [/*Container(
+          //TODO crop image instead of squeeze
+          width: 40.0, //TODO set to row width
+          height: 40.0, //TODO set to row height
+          decoration: new BoxDecoration(
+            shape: BoxShape.circle,
+            image: new DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage('images/senior_maytan.PNG'),
+            ),
+          ),)*/
+            //image: AssetImage('images/senior_maytan.PNG')
+        Image.asset('images/may_tan.png')
+          ],
+        ),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(
@@ -341,7 +382,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //        mainAxisAlignment: MainAxisAlignment.start,
 
               children: <Widget>[
-                Row(
+                /*Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
@@ -361,7 +402,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ],
-                ),
+                ),*/
                 SizedBox(height: 20),
                 _sosWidget(),
                 Text(
@@ -373,6 +414,28 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
 
 //      bottomNavigationBar: BottomNavigationBar(),
+        bottomNavigationBar:  Container(
+          height: 40,
+          //width: 56,
+          margin: EdgeInsets.symmetric(vertical: 20, horizontal: 100),
+          child: RaisedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => proximity()),
+              );
+            },
+            child: Text(
+                'PROXIMITY',
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.white,
+                )
+            ),
+            padding: EdgeInsets.fromLTRB(60,0,60,0),
+            color: Colors.red,
+          ),
+        ),
       ),
     );
   }
