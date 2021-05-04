@@ -4,8 +4,8 @@ import 'statistics.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: DashboardPage(),
-//    home: Statistics(),
+//    home: DashboardPage(),
+    home: Statistics(),
     //TODO: Do some evaluation to redirect to home-dashboard or onboarding pages
   ));
 }
