@@ -455,6 +455,8 @@ class SensorInkwellCard extends StatelessWidget {
   final SensorSummary sensorSummary;
   final Color greenIcon = const Color(0xFF13A806);
   final Color greenCard = const Color(0xFFEBF8DE);
+
+  //TODO: when doing for the below colors, get updated the color codes from figma
 //  final Color redIcon;
 //  final Color redCard;
 //  final Color yellowIcon;
@@ -468,6 +470,7 @@ class SensorInkwellCard extends StatelessWidget {
       cardColor = greenCard;
       iconColor = greenIcon;
     }
+    //TODO: do the above for RED and AMBER colours/status
 
     final TextStyle sensorNameStyle = TextStyle(fontSize: 16, color: iconColor, fontWeight: FontWeight.bold);
     final TextStyle sensorDetailStyle = TextStyle(fontSize: 28, fontWeight: FontWeight.bold);
@@ -477,6 +480,7 @@ class SensorInkwellCard extends StatelessWidget {
         if (sensorSummary.title == "proximity") {
           Navigator.push(context, MaterialPageRoute(builder: (context) => proximity()));
         }
+        //TODO: when other pages are done link to them as well
       },
       child: Card(
         color: cardColor,
@@ -526,7 +530,8 @@ class SeniorData {
   static List<SensorSummary> SensorSummaryList() {
     List<SensorSummary> sensorSummaries = <SensorSummary>[
       SensorSummary(title: 'proximity', iconImage: AssetImage('images/icons/proximity.png'), details: "Kitchen", status: "green"),
-      SensorSummary(title: 'bodytemp', iconImage: AssetImage('images/icons/bodyTemp.png'), details: "38.8\u00b0C", status: "green"), //degree symbol unicode: \u00b0
+      SensorSummary(title: 'bodytemp', iconImage: AssetImage('images/icons/bodyTemp.png'), details: "38.8\u00b0C", status: "green"),
+      //degree symbol unicode: \u00b0
     ];
     return sensorSummaries;
   }
