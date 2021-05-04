@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'proximity.dart';
 import 'confirmation.dart';
@@ -332,26 +333,26 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
 
 //      bottomNavigationBar: BottomNavigationBar(),
-        bottomNavigationBar: Container(
-          height: 40,
-          //width: 56,
-          margin: EdgeInsets.symmetric(vertical: 20, horizontal: 100),
-          child: RaisedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => proximity()),
-              );
-            },
-            child: Text('PROXIMITY',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.white,
-                )),
-            padding: EdgeInsets.fromLTRB(60, 0, 60, 0),
-            color: Colors.red,
-          ),
-        ),
+//        bottomNavigationBar: Container(
+//          height: 40,
+//          //width: 56,
+//          margin: EdgeInsets.symmetric(vertical: 20, horizontal: 100),
+//          child: RaisedButton(
+//            onPressed: () {
+//              Navigator.push(
+//                context,
+//                MaterialPageRoute(builder: (context) => proximity()),
+//              );
+//            },
+//            child: Text('PROXIMITY',
+//                style: TextStyle(
+//                  fontSize: 15,
+//                  color: Colors.white,
+//                )),
+//            padding: EdgeInsets.fromLTRB(60, 0, 60, 0),
+//            color: Colors.red,
+//          ),
+//        ),
       ),
     );
   }
@@ -364,10 +365,36 @@ class _DashboardPageState extends State<DashboardPage> {
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         //dropdown
-        Row(children: <Widget>[Text(curDateStr)]),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text("dropdown placeholder"),
+              Text(
+                curDateStr,
+                style: TextStyle(color: Colors.black, fontSize: 16),
+              ),
+            ],
+          ),
+        ),
         _currentStatus(), //sos-section
         //TODO: camera view. I am not sure how to handle data that involves live video
-        //cards
+        GridView.count(
+          primary: false,
+//          padding: const EdgeInsets.all(20),
+          crossAxisCount: 2, //this makes it 2x2
+          shrinkWrap: true,
+          children: List.generate(
+            SeniorData.SensorSummaryList().length,
+            (index) {
+              return Center(
+                child: SensorInkwellCard(sensorSummary: SeniorData.SensorSummaryList()[index]),
+              );
+            },
+          ),
+//          children: _getSensorCardsList(), SensorSummaryList()
+        ),
       ],
     );
   }
@@ -421,102 +448,65 @@ class _DashboardPageState extends State<DashboardPage> {
     else
       return Text("Everything looks great!");
   }
-//  @override
-//  Widget build(BuildContext context) {
-//    return MaterialApp(
-//      //title: 'SHINE Senior',
-//      theme: ThemeData(
-//        primarySwatch: Colors.red, //may need to change it
-//        textTheme: TextTheme(
-//          //headline4: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-//        ),
-//      ),
-//      home: Scaffold(
-//        appBar: AppBar(
-//          leading: (IconButton(
-//            icon: Icon(Icons.arrow_back_ios_rounded, color: Colors.black),
-//            onPressed: () {
-//              Navigator.push(
-//                context,
-//                MaterialPageRoute(builder: (context) => confirmation()),
-//              );
-//            },
-//          )),
-//          title: Text('Dashboard',
-//              style: TextStyle(
-//                fontSize: 30.0,
-//                fontWeight: FontWeight.bold,
-//                color: Colors.black,
-//              )),
-//          centerTitle: true,
-//          backgroundColor: Colors.white,
-//          actions: [Image.asset('images/may_tan.png')],
-//        ),
-//        body: SafeArea(
-//          child: Padding(
-//            padding: const EdgeInsets.symmetric(
-//              horizontal: 20.0,
-//              vertical: 10.0,
-//            ),
-//            child: Column(
-////        mainAxisAlignment: MainAxisAlignment.start,
-//
-//              children: <Widget>[
-//                /*Row(
-//                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                  children: <Widget>[
-//                    Text(
-//                      'Dashboard',
-//                      style: Theme.of(context).textTheme.headline4,
-//                    ),
-//                    new Container(
-//                      //TODO crop image instead of squeeze
-//                      width: 40.0, //TODO set to row width
-//                      height: 40.0, //TODO set to row height
-//                      decoration: new BoxDecoration(
-//                        shape: BoxShape.circle,
-//                        image: new DecorationImage(
-//                          fit: BoxFit.fill,
-//                          image: AssetImage('images/senior_maytan.PNG'),
-//                        ),
-//                      ),
-//                    ),
-//                  ],
-//                ),*/
-//                SizedBox(height: 20),
-//                _sosWidget(),
-//                Text(
-//                  'Main content',
-//                ),
-//              ],
-//            ),
-//          ),
-//        ),
-//
-////      bottomNavigationBar: BottomNavigationBar(),
-//        bottomNavigationBar: Container(
-//          height: 40,
-//          //width: 56,
-//          margin: EdgeInsets.symmetric(vertical: 20, horizontal: 100),
-//          child: RaisedButton(
-//            onPressed: () {
-//              Navigator.push(
-//                context,
-//                MaterialPageRoute(builder: (context) => proximity()),
-//              );
-//            },
-//            child: Text('PROXIMITY',
-//                style: TextStyle(
-//                  fontSize: 15,
-//                  color: Colors.white,
-//                )),
-//            padding: EdgeInsets.fromLTRB(60, 0, 60, 0),
-//            color: Colors.red,
-//          ),
-//        ),
-//      ),
-//    );
-//  }
+}
+
+class SensorInkwellCard extends StatelessWidget {
+  const SensorInkwellCard({Key key, this.sensorSummary}) : super(key: key);
+  final SensorSummary sensorSummary;
+  final Color greenIcon = const Color(0xFF13A806);
+  final Color greenCard = const Color(0xFFEBF8DE);
+//  final Color redIcon;
+//  final Color redCard;
+//  final Color yellowIcon;
+//  final Color yellowCard;
+
+  @override
+  Widget build(BuildContext context) {
+    Color cardColor;
+    Color iconColor;
+    if (sensorSummary.status == "green") {
+      cardColor = greenCard;
+      iconColor = greenIcon;
+    }
+
+    final TextStyle sensorNameStyle = TextStyle(fontSize: 16, color: iconColor, fontWeight: FontWeight.bold);
+    final TextStyle sensorDetailStyle = TextStyle(fontSize: 28, fontWeight: FontWeight.bold);
+
+    return InkWell(
+      onTap: () {
+        if (sensorSummary.title == "proximity") {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => proximity()));
+        }
+      },
+      child: Card(
+        color: cardColor,
+        margin: EdgeInsets.all(5.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(height: 10),
+              Expanded(
+                flex: 3,
+                child: new FittedBox(
+                  fit: BoxFit.fill,
+                  child: ImageIcon(sensorSummary.iconImage, color: iconColor),
+                ),
+              ),
+              SizedBox(height: 10),
+              Text(sensorSummary.title, style: sensorNameStyle),
+              SizedBox(height: 10),
+              Text(sensorSummary.details, style: sensorDetailStyle),
+              SizedBox(height: 10),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 /*
@@ -532,4 +522,20 @@ class SeniorData {
     return true; //if SOS for senior is triggered
 //    return false;
   }
+
+  static List<SensorSummary> SensorSummaryList() {
+    List<SensorSummary> sensorSummaries = <SensorSummary>[
+      SensorSummary(title: 'proximity', iconImage: AssetImage('images/icons/proximity.png'), details: "Kitchen", status: "green"),
+      SensorSummary(title: 'bodytemp', iconImage: AssetImage('images/icons/bodyTemp.png'), details: "38.8\u00b0C", status: "green"), //degree symbol unicode: \u00b0
+    ];
+    return sensorSummaries;
+  }
+}
+
+class SensorSummary {
+  SensorSummary({this.title, this.details, this.iconImage, this.status});
+  AssetImage iconImage;
+  String title;
+  String status;
+  String details;
 }

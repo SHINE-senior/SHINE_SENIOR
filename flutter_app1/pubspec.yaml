@@ -24,6 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   intl: ^0.15.7
+  flutter_svg: ^0.20.0-nullsafety.3
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -41,19 +42,18 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
   # To add assets to your application, add an assets section, like this:
   assets:
-     - images/senior_maytan.PNG
-     - images/arrow.png
-     - images/may_tan.png
-     - images/monitoring.PNG
-     - images/statistics.PNG
+    - images/senior_maytan.PNG
+    - images/arrow.png
+    - images/may_tan.png
+    - images/monitoring.PNG
+    - images/statistics.PNG
+    - images/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
