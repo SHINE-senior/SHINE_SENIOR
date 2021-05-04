@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'today_timeline.dart';
 import 'yesterday_timeline.dart';
 import 'proximity_history.dart';
-import 'sos-popup-screen.dart';
+import 'dashboard.dart';
 //import 'notification.dart';
 
 
@@ -49,7 +49,7 @@ class _proximityState extends State<proximity> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => MyHomePage()),
+                  MaterialPageRoute(builder: (context) => DashboardPage()),
                 );
               },
             )
@@ -71,7 +71,7 @@ class _proximityState extends State<proximity> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => MyHomePage()),
+              MaterialPageRoute(builder: (context) => DashboardPage()),
             );
           },
         )],

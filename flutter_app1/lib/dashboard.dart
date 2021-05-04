@@ -1,40 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'proximity.dart';
 import 'confirmation.dart';
 
-/*
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'SHINE Senior',
-      theme: ThemeData(
-        primarySwatch: Colors.red, //may need to change it
-        textTheme: TextTheme(
-//          bodyText1: ,
-          headline4: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-      ),
-      home: MyHomePage(title: 'Dashboard'),
-    );
-  }
-}*/
-
-class MyHomePage extends StatefulWidget {
+class DashboardPage extends StatefulWidget {
   //MyHomePage({Key key, this.title}) : super(key: key);
   //final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _DashboardPageState createState() => _DashboardPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _DashboardPageState extends State<DashboardPage> {
   static const String ATTEND_TO_SENIOR = 'ATTEND TO SENIOR';
   static const String CALL_SENIOR = 'CALL SENIOR';
   static const String CALL_AMBULANCE = 'CALL AMBULANCE';
@@ -42,18 +20,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool _isSOS = false;
   List<String> actionsTaken = List<String>.empty(growable: true);
-
-  void _raiseAlarm() {
-    setState(() {
-      _isSOS = true;
-    });
-  }
-
-  void _resumeMonitoring() {
-    setState(() {
-      _isSOS = true;
-    });
-  }
 
   void _addNewAction(String buttonText) {
     switch (buttonText) {
@@ -67,13 +33,13 @@ class _MyHomePageState extends State<MyHomePage> {
         actionsTaken.add('Called ambulance');
         break;
 
-    //if call nearest help is activated
+      //if call nearest help is activated
       default:
         actionsTaken.add('Called ' + buttonText);
     }
   }
 
-  void _sosPopup() {
+  void _showSosPopup() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -110,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
-  _nearestHelpPopup() {
+  _showNearestHelpPopup() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -191,11 +157,11 @@ class _MyHomePageState extends State<MyHomePage> {
     return SizedBox(
       width: double.infinity, // <-- match_parent
       child: ElevatedButton(
-        style: ButtonStyle( backgroundColor: MaterialStateProperty.all<Color>(Colors.red)),
+        style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.red)),
         onPressed: () {
           Navigator.of(context).pop();
           _addNewAction(text);
-          _sosPopup();
+          _showSosPopup();
         },
         child: Row(
           children: <Widget>[
@@ -215,17 +181,17 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           Navigator.of(context).pop();
           _addNewAction(personCalled);
-          _sosPopup();
+          _showSosPopup();
         },
         style: OutlinedButton.styleFrom(
           side: BorderSide(width: 3.0, color: Colors.red),
         ),
         child: Row(
           children: <Widget>[
-            Icon(icon,color: Colors.red),
+            Icon(icon, color: Colors.red),
             SizedBox(width: 20),
             Text(personCalled, style: TextStyle(color: Colors.red, fontSize: 20, fontWeight: FontWeight.bold) //todo: use pri color
-            ),
+                ),
           ],
         ),
       ),
@@ -238,17 +204,17 @@ class _MyHomePageState extends State<MyHomePage> {
       child: OutlinedButton(
         onPressed: () {
           Navigator.of(context).pop();
-          _nearestHelpPopup();
+          _showNearestHelpPopup();
         },
         style: OutlinedButton.styleFrom(
           side: BorderSide(width: 3.0, color: Colors.red),
         ),
         child: Row(
           children: <Widget>[
-            Icon(icon,color: Colors.red),
+            Icon(icon, color: Colors.red),
             SizedBox(width: 20),
             Text(text, style: TextStyle(color: Colors.red, fontSize: 20, fontWeight: FontWeight.bold) //todo: use pri color
-            ),
+                ),
           ],
         ),
       ),
@@ -300,7 +266,7 @@ class _MyHomePageState extends State<MyHomePage> {
         SizedBox(
           width: double.infinity, // <-- match_parent
           child: ElevatedButton(
-            onPressed: _sosPopup,
+            onPressed: _showSosPopup,
             child: Text(
               'SOS',
               style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
@@ -310,7 +276,7 @@ class _MyHomePageState extends State<MyHomePage> {
         SizedBox(
           width: double.infinity, // <-- match_parent
           child: OutlinedButton(
-            onPressed: _sosPopup,
+            onPressed: _showSosPopup,
             style: OutlinedButton.styleFrom(
               side: BorderSide(width: 3.0, color: Colors.red),
             ),
@@ -324,97 +290,49 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       //title: 'SHINE Senior',
       theme: ThemeData(
         primarySwatch: Colors.red, //may need to change it
         textTheme: TextTheme(
-          //headline4: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
+            //headline4: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            ),
       ),
       home: Scaffold(
         appBar: AppBar(
-          leading: (
-              IconButton(
-                icon: Icon(Icons.arrow_back_ios_rounded, color: Colors.black),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => confirmation()),
-                  );
-                },
-              )
-          ),
-          title: Text(
-              'Dashboard',
+//          leading:
+          title: Text('Dashboard',
               style: TextStyle(
                 fontSize: 30.0,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
-              )
-          ),
+              )),
           centerTitle: true,
-          backgroundColor: Colors.white,
-          actions: [/*Container(
-          //TODO crop image instead of squeeze
-          width: 40.0, //TODO set to row width
-          height: 40.0, //TODO set to row height
-          decoration: new BoxDecoration(
-            shape: BoxShape.circle,
-            image: new DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage('images/senior_maytan.PNG'),
+          iconTheme: IconThemeData(color: Colors.blue), //add this line here
+          actions: <Widget>[
+            IconButton(
+              icon: CircleAvatar(
+                backgroundImage: SeniorData.getSeniorImage(),
+                backgroundColor: Colors.transparent,
+              ),
             ),
-          ),)*/
-            //image: AssetImage('images/senior_maytan.PNG')
-        Image.asset('images/may_tan.png')
           ],
+          backgroundColor: Colors.white,
         ),
+        drawer: Drawer(), //TODO: Set the side navigation drawer
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 20.0,
               vertical: 10.0,
             ),
-            child: Column(
-//        mainAxisAlignment: MainAxisAlignment.start,
-
-              children: <Widget>[
-                /*Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      'Dashboard',
-                      style: Theme.of(context).textTheme.headline4,
-                    ),
-                    new Container(
-                      //TODO crop image instead of squeeze
-                      width: 40.0, //TODO set to row width
-                      height: 40.0, //TODO set to row height
-                      decoration: new BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: new DecorationImage(
-                          fit: BoxFit.fill,
-                          image: AssetImage('images/senior_maytan.PNG'),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),*/
-                SizedBox(height: 20),
-                _sosWidget(),
-                Text(
-                  'Main content',
-                ),
-              ],
-            ),
+            child: _dashboard(),
           ),
         ),
 
 //      bottomNavigationBar: BottomNavigationBar(),
-        bottomNavigationBar:  Container(
+        bottomNavigationBar: Container(
           height: 40,
           //width: 56,
           margin: EdgeInsets.symmetric(vertical: 20, horizontal: 100),
@@ -425,18 +343,193 @@ class _MyHomePageState extends State<MyHomePage> {
                 MaterialPageRoute(builder: (context) => proximity()),
               );
             },
-            child: Text(
-                'PROXIMITY',
+            child: Text('PROXIMITY',
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.white,
-                )
-            ),
-            padding: EdgeInsets.fromLTRB(60,0,60,0),
+                )),
+            padding: EdgeInsets.fromLTRB(60, 0, 60, 0),
             color: Colors.red,
           ),
         ),
       ),
     );
+  }
+
+  Widget _dashboard() {
+    DateTime curDate = DateTime.now();
+    String curDateStr = DateFormat('dd-MMM-yyyy').format(curDate);
+
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        //dropdown
+        Row(children: <Widget>[Text(curDateStr)]),
+        _currentStatus(), //sos-section
+        //TODO: camera view. I am not sure how to handle data that involves live video
+        //cards
+      ],
+    );
+  }
+
+  Widget _currentStatus() {
+    if (SeniorData.isStatusAlarming())
+      return Column(
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          Text(
+            'Oh no! Your senior has fallen in the kitchen. Call your senior and check on them!',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(
+            width: double.infinity, // <-- match_parent
+            child: ElevatedButton(
+              onPressed: () {
+                _showSosPopup();
+              },
+              child: Text(
+                'SOS',
+                style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          SizedBox(
+            width: double.infinity, // <-- match_parent
+            child: OutlinedButton(
+              onPressed: () {
+                //todo:lead to report page
+//                Navigator.push(
+//                  context,
+//                  MaterialPageRoute(builder: (context) => SOSPopup()),
+//                );
+              },
+              style: OutlinedButton.styleFrom(
+                side: BorderSide(width: 3.0, color: Colors.red),
+              ),
+              child: Text(
+                'Report Incident',
+                style: TextStyle(color: Colors.red, fontSize: 24, fontWeight: FontWeight.bold), //todo: use pri color
+              ),
+            ),
+          ),
+        ],
+      );
+    else
+      return Text("Everything looks great!");
+  }
+//  @override
+//  Widget build(BuildContext context) {
+//    return MaterialApp(
+//      //title: 'SHINE Senior',
+//      theme: ThemeData(
+//        primarySwatch: Colors.red, //may need to change it
+//        textTheme: TextTheme(
+//          //headline4: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+//        ),
+//      ),
+//      home: Scaffold(
+//        appBar: AppBar(
+//          leading: (IconButton(
+//            icon: Icon(Icons.arrow_back_ios_rounded, color: Colors.black),
+//            onPressed: () {
+//              Navigator.push(
+//                context,
+//                MaterialPageRoute(builder: (context) => confirmation()),
+//              );
+//            },
+//          )),
+//          title: Text('Dashboard',
+//              style: TextStyle(
+//                fontSize: 30.0,
+//                fontWeight: FontWeight.bold,
+//                color: Colors.black,
+//              )),
+//          centerTitle: true,
+//          backgroundColor: Colors.white,
+//          actions: [Image.asset('images/may_tan.png')],
+//        ),
+//        body: SafeArea(
+//          child: Padding(
+//            padding: const EdgeInsets.symmetric(
+//              horizontal: 20.0,
+//              vertical: 10.0,
+//            ),
+//            child: Column(
+////        mainAxisAlignment: MainAxisAlignment.start,
+//
+//              children: <Widget>[
+//                /*Row(
+//                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                  children: <Widget>[
+//                    Text(
+//                      'Dashboard',
+//                      style: Theme.of(context).textTheme.headline4,
+//                    ),
+//                    new Container(
+//                      //TODO crop image instead of squeeze
+//                      width: 40.0, //TODO set to row width
+//                      height: 40.0, //TODO set to row height
+//                      decoration: new BoxDecoration(
+//                        shape: BoxShape.circle,
+//                        image: new DecorationImage(
+//                          fit: BoxFit.fill,
+//                          image: AssetImage('images/senior_maytan.PNG'),
+//                        ),
+//                      ),
+//                    ),
+//                  ],
+//                ),*/
+//                SizedBox(height: 20),
+//                _sosWidget(),
+//                Text(
+//                  'Main content',
+//                ),
+//              ],
+//            ),
+//          ),
+//        ),
+//
+////      bottomNavigationBar: BottomNavigationBar(),
+//        bottomNavigationBar: Container(
+//          height: 40,
+//          //width: 56,
+//          margin: EdgeInsets.symmetric(vertical: 20, horizontal: 100),
+//          child: RaisedButton(
+//            onPressed: () {
+//              Navigator.push(
+//                context,
+//                MaterialPageRoute(builder: (context) => proximity()),
+//              );
+//            },
+//            child: Text('PROXIMITY',
+//                style: TextStyle(
+//                  fontSize: 15,
+//                  color: Colors.white,
+//                )),
+//            padding: EdgeInsets.fromLTRB(60, 0, 60, 0),
+//            color: Colors.red,
+//          ),
+//        ),
+//      ),
+//    );
+//  }
+}
+
+/*
+THESE ARE DUMMY CLASSES AND METHODS (dummy external API)
+ */
+class SeniorData {
+  static ImageProvider getSeniorImage() {
+//    image: NetworkImage('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg');
+    return new AssetImage('images/senior_maytan.PNG');
+  }
+
+  static bool isStatusAlarming() {
+    return true; //if SOS for senior is triggered
+//    return false;
   }
 }

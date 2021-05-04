@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'notification.dart';
-import 'sos-popup-screen.dart';
+import 'dashboard.dart';
 
 class confirmation extends StatelessWidget {
   @override
@@ -120,7 +120,7 @@ class confirmation extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => MyHomePage()),
+              MaterialPageRoute(builder: (context) => DashboardPage()),
             );
           },
           child: Text(

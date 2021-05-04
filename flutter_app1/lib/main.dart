@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app1/dashboard.dart';
 import 'statistics.dart';
-
 
 void main() {
   runApp(MaterialApp(
-    home: Statistics(),
+    home: DashboardPage(),
+//    home: Statistics(),
+    //TODO: Do some evaluation to redirect to home-dashboard or onboarding pages
   ));
 }
 /*

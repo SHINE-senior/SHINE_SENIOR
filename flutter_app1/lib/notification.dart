@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'proximity.dart';
 import 'confirmation.dart';
-//import 'sos-popup-screen.dart';
+//import 'dashboard.dart';
 
 class notification extends StatefulWidget {
   @override
