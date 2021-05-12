@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'notification.dart';
+//import 'notification.dart';
+//import 'sos-popup-screen.dart';
 import 'dashboard.dart';
 
 class confirmation extends StatelessWidget {
@@ -7,7 +8,7 @@ class confirmation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: (
+        /*leading: (
             IconButton(
               icon: Icon(Icons.arrow_back_ios_rounded, color: Colors.black),
               onPressed: () {
@@ -17,7 +18,7 @@ class confirmation extends StatelessWidget {
                 );
               },
             )
-        ),
+        ),*/
         title: Text(
             'Confirmation',
             style: TextStyle(
@@ -36,16 +37,6 @@ class confirmation extends StatelessWidget {
           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
           children: [
-           /* Container(
-                padding: EdgeInsets.fromLTRB(55, 50, 0, 30),
-                child: Text(
-                    'Confirmation',
-                    style: TextStyle(
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
-                    )
-                )
-            ),*/
            SizedBox(height:80),
             Container(
               width: 300,
@@ -92,22 +83,6 @@ class confirmation extends StatelessWidget {
                 //padding: EdgeInsets.fromLTRB(40, 50, 0, 30),
               ),
             ),
-
-            /*Container(
-              margin: EdgeInsets.fromLTRB(30, 0, 0, 0),
-              child: RaisedButton(
-                onPressed: () {},
-                child: Text(
-                  'CONTINUE',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.white,
-                  ),
-                ),
-                padding: EdgeInsets.fromLTRB(40, 0, 40, 0),
-                color: Colors.red,
-              ),
-            ),*/
           ],
         ),
       ),
@@ -120,7 +95,7 @@ class confirmation extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => DashboardPage()),
+              MaterialPageRoute(builder: (context) => DashboardPage()),//MyHomePage()),
             );
           },
           child: Text(

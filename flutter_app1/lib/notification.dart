@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'proximity.dart';
 import 'confirmation.dart';
-//import 'dashboard.dart';
+//import 'sos-popup-screen.dart';
 
 class notification extends StatefulWidget {
   @override
@@ -35,15 +35,6 @@ class _notificationState extends State<notification> {
             children: [Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /*Center(
-                  child: Text(
-                'Notification',
-                style: TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.bold,
-                   )
-                  )
-                ),*/
                 SizedBox(height: 40),
                 Text(
                     'Please confirm your phone number and emailid you would like to be contacted in case of emergency',
@@ -159,25 +150,6 @@ class _notificationState extends State<notification> {
                   ],
                 ),
                 SizedBox(height: 80),
-                /*Center(
-                  child: RaisedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => body_temp()),
-                      );
-                    },
-                    child: Text(
-                        'CONTINUE',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.white,
-                        )
-                    ),
-                    padding: EdgeInsets.fromLTRB(60,0,60,0),
-                    color: Colors.red,
-                  ),
-                )*/
               ],
             ),]
         ),

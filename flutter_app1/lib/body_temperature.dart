@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
+//import 'sos-popup-screen.dart';
 import 'dashboard.dart';
 
-class time_temp {
+class time_temp{
   String time;
   String temperature;
 
-  time_temp({this.time, this.temperature});
+  time_temp({this.time,this.temperature});
 }
 
 List<time_temp> today = [
-  time_temp(temperature: '38.1 C', time: '6.00 pm'),
-  time_temp(temperature: '37.6 C', time: '4.00 pm'),
-  time_temp(temperature: '37.1 C', time: '2.00 pm'),
-  time_temp(temperature: '37 C', time: '12.00 pm'),
-  time_temp(temperature: '37.5 C', time: '10.00 am'),
-  time_temp(temperature: '36.9 C', time: '8.00 am')
+  time_temp(temperature:'38.1 C', time:'6.00 pm'),
+  time_temp(temperature:'37.6 C', time:'4.00 pm'),
+  time_temp(temperature:'37.1 C', time:'2.00 pm'),
+  time_temp(temperature:'37 C', time:'12.00 pm'),
+  time_temp(temperature:'37.5 C', time:'10.00 am'),
+  time_temp(temperature:'36.9 C', time:'8.00 am')
 ];
 
-List sub_today = today.sublist(1, today.length - 1);
+List sub_today = today.sublist(1, today.length-1);
 
-Widget myfunc(String time, String temp) {
-  return (SizedBox(
+Widget myfunc(String time,String temp) {
+  return(SizedBox(
     height: 70,
     child: TimelineTile(
       alignment: TimelineAlign.center,
@@ -37,13 +38,20 @@ Widget myfunc(String time, String temp) {
         ),
       ),
       endChild: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-          child: (temp.compareTo('37.7') > 0) ? (fever(temp)) : ((temp.compareTo('37.4') > 0) ? (risky(temp)) : (normal(temp)))),
+        padding: const EdgeInsets.fromLTRB(20,0,0,0),
+        child: (temp.compareTo('37.7')>0)
+                 ?(fever(temp))
+                 :((temp.compareTo('37.4')>0)
+                    ?(risky(temp))
+                    :(normal(temp)))
+      ),
     ),
-  ));
+  )
+  );
 }
 
-Row index() {
+
+Row index(){
   return (Row(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
@@ -57,7 +65,8 @@ Row index() {
   ));
 }
 
-Card fever(temp) {
+
+Card fever(temp){
   return Card(
     child: Container(
       decoration: new BoxDecoration(
@@ -78,7 +87,7 @@ Card fever(temp) {
   );
 }
 
-Card risky(temp) {
+Card risky(temp){
   return Card(
     child: Container(
       decoration: new BoxDecoration(
@@ -99,7 +108,7 @@ Card risky(temp) {
   );
 }
 
-Card normal(temp) {
+Card normal(temp){
   return Card(
     child: Container(
       decoration: new BoxDecoration(
@@ -120,59 +129,70 @@ Card normal(temp) {
   );
 }
 
-SizedBox firstchild_timetime() {
-  return (SizedBox(
-    height: 70,
-    child: TimelineTile(
-      alignment: TimelineAlign.center,
-      //lineXY: 0.3,
-      startChild: Card(
-        child: Text(
-          today[0].time,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 17,
-            color: Colors.black,
+
+SizedBox firstchild_timetime(){
+  return (
+      SizedBox(
+        height: 70,
+        child: TimelineTile(
+          alignment: TimelineAlign.center,
+          //lineXY: 0.3,
+          startChild: Card(
+            child: Text(
+              today[0].time,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 17,
+                color: Colors.black,
+              ),
+            ),
           ),
+          endChild: Padding(
+              padding: const EdgeInsets.fromLTRB(20,0,0,0),
+              child: (today[0].temperature.compareTo('37.7')>0)
+                  ?(fever(today[0].temperature))
+                  :((today[0].temperature.compareTo('37.4')>0)
+                  ?(risky(today[0].temperature))
+                  :(normal(today[0].temperature)))
+          ),
+          isFirst: true,
         ),
-      ),
-      endChild: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-          child: (today[0].temperature.compareTo('37.7') > 0)
-              ? (fever(today[0].temperature))
-              : ((today[0].temperature.compareTo('37.4') > 0) ? (risky(today[0].temperature)) : (normal(today[0].temperature)))),
-      isFirst: true,
-    ),
-  ));
+      )
+  );
 }
 
+
 SizedBox lastchild_timetime() {
-  return (SizedBox(
-    height: 70,
-    child: TimelineTile(
-      alignment: TimelineAlign.center,
-      //lineXY: 0.3,
-      startChild: Card(
-        child: Text(
-          today[today.length - 1].time,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 17,
-            color: Colors.black,
+  return (
+      SizedBox(
+        height: 70,
+        child: TimelineTile(
+          alignment: TimelineAlign.center,
+          //lineXY: 0.3,
+          startChild: Card(
+            child: Text(
+              today[today.length-1].time,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 17,
+                color: Colors.black,
+              ),
+            ),
           ),
+          endChild: Padding(
+              padding: const EdgeInsets.fromLTRB(20,0,0,0),
+              child: (today[today.length-1].temperature.compareTo('37.7')>0)
+                  ?(fever(today[today.length-1].temperature))
+                  :((today[today.length-1].temperature.compareTo('37.4')>0)
+                  ?(risky(today[today.length-1].temperature))
+                  :(normal(today[today.length-1].temperature)))
+          ),
+          isLast: true,
         ),
-      ),
-      endChild: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-          child: (today[today.length - 1].temperature.compareTo('37.7') > 0)
-              ? (fever(today[today.length - 1].temperature))
-              : ((today[today.length - 1].temperature.compareTo('37.4') > 0)
-                  ? (risky(today[today.length - 1].temperature))
-                  : (normal(today[today.length - 1].temperature)))),
-      isLast: true,
-    ),
-  ));
+      )
+  );
 }
+
 
 class body_temp extends StatefulWidget {
   @override
@@ -180,8 +200,9 @@ class body_temp extends StatefulWidget {
 }
 
 class _body_tempState extends State<body_temp> {
+
   String dropdown = 'Today';
-  List listItem = ['Today', 'Yesterday'];
+  List listItem = ['Today','Yesterday'];
 
   //var _controller= ScrollController();
 
@@ -189,82 +210,95 @@ class _body_tempState extends State<body_temp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: (IconButton(
-          icon: Icon(Icons.arrow_back_ios_rounded, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
-        )),
-        title: Text('Body Temperature',
-            style: TextStyle(
-              fontSize: 30.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            )),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
-        child: ListView(children: [
-          Column(
-            children: [
-              SizedBox(height: 20),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: EdgeInsets.only(left: 20, right: 20),
-                child: DropdownButton(
-                  value: dropdown,
-                  dropdownColor: Colors.red,
-                  icon: Icon(Icons.arrow_drop_down),
-                  onChanged: (newval) {
-                    setState(() {
-                      dropdown = newval;
-                    });
-                  },
-                  items: listItem.map((valueitem) {
-                    return DropdownMenuItem(
-                      value: valueitem,
-                      child: Text(valueitem,
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                          )),
-                    );
-                  }).toList(),
-                ),
-              ),
-              SizedBox(height: 20),
-              Center(
-                child: Container(
-                    width: 200,
-                    height: 70,
-                    decoration: new BoxDecoration(
-                      color: Colors.red[100],
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Text('Highest: 38 C',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 20,
-                          )),
-                    )),
-              ),
-              SizedBox(height: 20),
-              index(),
-              SizedBox(
-                height: 30,
-              ),
-              firstchild_timetime(),
-              Column(children: sub_today.map((timetemp) => myfunc(timetemp.time, timetemp.temperature)).toList()),
-              lastchild_timetime(),
-            ],
+            leading: (
+              IconButton(
+                icon: Icon(Icons.arrow_back_ios_rounded, color: Colors.black),
+                onPressed: () => Navigator.of(context).pop(),
+              )
           ),
-        ]),
+          title: Text(
+                'Body Temperature',
+                style: TextStyle(
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                )
+            ),
+            centerTitle: true,
+            backgroundColor: Colors.white,
+        ),
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(15,15,15,10),
+        child: ListView(
+          children: [Column(
+                    children: [
+                      SizedBox(height: 20),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding: EdgeInsets.only(left:20,right:20),
+                      child: DropdownButton(
+                          value: dropdown,
+                        dropdownColor: Colors.red,
+                        icon: Icon(Icons.arrow_drop_down),
+                        onChanged: (newval) {
+                            setState(() {
+                              dropdown = newval;
+                            });
+                        },
+                        items: listItem.map((valueitem) {
+                          return DropdownMenuItem(
+                            value: valueitem,
+                            child: Text(
+                                valueitem,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                )
+                            ),
+                          );
+                        }).toList(),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Center(
+                        child: Container(
+                            width: 200,
+                            height: 70,
+                            decoration: new BoxDecoration(
+                                color: Colors.red[100],
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          child: Center(
+                              child: Text(
+                                'Highest: 38 C',
+                                textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 20,
+                              )
+                            ),
+                          )
+                        ),
+                      ),
+                      SizedBox(height:20),
+                      index(),
+                      SizedBox(height: 30,),
+
+                      firstchild_timetime(),
+
+                      Column(
+                          children: sub_today.map((timetemp) => myfunc(timetemp.time,timetemp.temperature)).toList()
+                      ),
+
+                      lastchild_timetime(),
+
+                    ],
+                  ),]
+        ),
       ),
-      bottomNavigationBar: Container(
+      bottomNavigationBar:  Container(
         height: 40,
         //width: 56,
         margin: EdgeInsets.symmetric(vertical: 20, horizontal: 100),
@@ -275,13 +309,15 @@ class _body_tempState extends State<body_temp> {
               MaterialPageRoute(builder: (context) => DashboardPage()),
             );
           },
-          child: Text('HISTORY',
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.white,
-              )),
-          padding: EdgeInsets.fromLTRB(60, 0, 60, 0),
-          color: Colors.red,
+              child: Text(
+                    'HISTORY',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.white,
+                    )
+                ),
+              padding: EdgeInsets.fromLTRB(60,0,60,0),
+              color: Colors.red,
         ),
       ),
     );
