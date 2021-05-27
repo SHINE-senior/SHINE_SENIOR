@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'proximity.dart';
 import 'bodyTemperature.dart';
 import 'doorContact.dart';
-import 'confirmation.dart';
+import 'profile_Page.dart';
 
 class DashboardPage extends StatefulWidget {
   //MyHomePage({Key key, this.title}) : super(key: key);
@@ -334,18 +334,84 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
 
           bottomNavigationBar: Container(
-            height: 40,
+            height: 75,
             child: Column(
               children: [
-                Text('Menu Bar'),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text('Home'),
-                    Text('Activity'),
-                    Text('Calender'),
-                    Text('Settings'),
-                    Text('Profile'),
+                    Column(
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            Icons.home,
+                            color: Colors.red,
+                            size: 35,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => DashboardPage()),//MyHomePage()),
+                            );
+                          },
+                        ),
+                        Text('Home'),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            Icons.article,
+                            color: Colors.red,
+                            size: 35,
+                          ),
+                        ),
+                        Text('Activity'),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            Icons.home,
+                            color: Colors.red,
+                            size: 35,
+                          ),
+                        ),
+                        Text('Calender'),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            Icons.settings,
+                            color: Colors.red,
+                            size: 35,
+                          ),
+                        ),
+                        Text('Settings'),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            Icons.person,
+                            color: Colors.red,
+                            size: 35,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => profile_Page()),
+                            );
+                          },
+                        ),
+                        Text('Profile'),
+                      ],
+                    ),
                   ],
                 ),
               ],
