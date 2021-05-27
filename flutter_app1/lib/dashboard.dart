@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'proximity.dart';
-import 'body_temperature.dart';
+import 'bodyTemperature.dart';
+import 'doorContact.dart';
 import 'confirmation.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -501,7 +502,10 @@ class SensorInkwellCard extends StatelessWidget {
           Navigator.push(context, MaterialPageRoute(builder: (context) => proximity()));
         }
         if (sensorSummary.title == "bodytemp") {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => body_temp()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => bodyTemperature()));
+        }
+        if (sensorSummary.title == "doorcontact") {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => doorContact()));
         }
         //TODO: when other pages are done link to them as well
       },
@@ -555,7 +559,7 @@ class SeniorData {
       SensorSummary(title: 'proximity', iconImage: AssetImage('images/icons/Proximity.png'), details: "Kitchen", status: "green"),
       SensorSummary(title: 'bodytemp', iconImage: AssetImage('images/icons/bodyTemp.png'), details: "38.8\u00b0C", status: "green"),
       SensorSummary(title: 'Fall Detection', iconImage: AssetImage('images/icons/fallDetection.png'), details: "Stable", status: "green"),
-      SensorSummary(title: 'Door', iconImage: AssetImage('images/icons/DoorContact.png'), details: "Closed", status: "green"),
+      SensorSummary(title: 'doorcontact', iconImage: AssetImage('images/icons/DoorContact.png'), details: "Closed", status: "green"),
       //degree symbol unicode: \u00b0
     ];
     return sensorSummaries;
