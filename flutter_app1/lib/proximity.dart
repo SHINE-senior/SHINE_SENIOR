@@ -208,7 +208,7 @@ switch_timeline(dropdown) {
   int visits=0;
   var temp;
   switch(dropdown){
-    case 'Today': day=today;
+    case 'Today': day=proximityToday;
                   for(int i=0;i<day.length-1;i++){
                     temp = (((double.parse(day[i].time.split(' ')[0])-double.parse(day[i+1].time.split(' ')[0]))).abs());
                     if(max_time < temp){
@@ -234,7 +234,7 @@ switch_timeline(dropdown) {
                         }
                       }
                       break;
-    default: day=today;
+    default: day=proximityToday;
   };
   var counting=1;
   var mytime=day[counting].time;

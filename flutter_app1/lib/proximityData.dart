@@ -5,9 +5,9 @@ class time_loc{
   time_loc({this.time,this.location});
 }
 
-List<time_loc> today = [
-  time_loc(location:'Kitchen', time:'6.00 pm'),
-  time_loc(location:'Living', time:'3.00 pm'),
+List<time_loc> proximityToday = [
+  time_loc(location:'Living', time:'6.00 pm'),
+  time_loc(location:'Kitchen', time:'3.00 pm'),
   time_loc(location:'Bedroom', time:'2.00 pm'),
   time_loc(location:'Washroom', time:'12.00 pm'),
   time_loc(location:'Living', time:'10.30 am'),

@@ -5,35 +5,35 @@ class time_door{
   time_door({this.time,this.door});
 }
 
-List<time_door> today = [
-  time_door(door:'opened', time:'6.00 pm'),
-  time_door(door:'closed', time:'3.00 pm'),
-  time_door(door:'opened', time:'2.00 pm'),
+List<time_door> doorToday = [
+  time_door(door:'Opened', time:'6.00 pm'),
+  time_door(door:'Closed', time:'3.00 pm'),
+  time_door(door:'Opened', time:'2.00 pm'),
   //time_door(door:'closed', time:'12.00 pm'),
-  time_door(door:'opened', time:'10.30 am'),
-  time_door(door:'closed', time:'8.00 am')
+  time_door(door:'Opened', time:'10.30 am'),
+  time_door(door:'Closed', time:'8.00 am')
 ];
 
 List<time_door> yesterday = [
-  time_door(door:'closed', time:'5.00 pm'),
-  time_door(door:'opened', time:'3.00 pm'),
-  time_door(door:'closed', time:'1.30 pm'),
-  time_door(door:'opened', time:'9.00 am'),
-  time_door(door:'closed', time:'7.00 am'),
-  time_door(door:'opened', time:'5.00 am'),
-  time_door(door:'closed', time:'3.30 am'),
-  time_door(door:'opened', time:'1.00 am')
+  time_door(door:'Closed', time:'5.00 pm'),
+  time_door(door:'Opened', time:'3.00 pm'),
+  time_door(door:'Closed', time:'1.30 pm'),
+  time_door(door:'Opened', time:'9.00 am'),
+  time_door(door:'Closed', time:'7.00 am'),
+  time_door(door:'Opened', time:'5.00 am'),
+  time_door(door:'Closed', time:'3.30 am'),
+  time_door(door:'Opened', time:'1.00 am')
 ];
 
 List<time_door> date_01_01_2021 = [
-  time_door(door:'closed', time:'5.00 pm'),
-  time_door(door:'opened', time:'3.00 pm'),
-  time_door(door:'closed', time:'1.30 pm'),
-  time_door(door:'opened', time:'9.00 am'),
-  time_door(door:'closed', time:'7.00 am'),
-  time_door(door:'opened', time:'5.00 am'),
-  time_door(door:'closed', time:'3.30 am'),
-  time_door(door:'opened', time:'1.00 am')
+  time_door(door:'Closed', time:'5.00 pm'),
+  time_door(door:'Opened', time:'3.00 pm'),
+  time_door(door:'Closed', time:'1.30 pm'),
+  time_door(door:'Opened', time:'9.00 am'),
+  time_door(door:'Closed', time:'7.00 am'),
+  time_door(door:'Opened', time:'5.00 am'),
+  time_door(door:'Closed', time:'3.30 am'),
+  time_door(door:'Opened', time:'1.00 am')
 ];
 
 List<time_door> date_02_01_2021 = [

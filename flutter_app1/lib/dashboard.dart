@@ -5,6 +5,9 @@ import 'proximity.dart';
 import 'bodyTemperature.dart';
 import 'doorContact.dart';
 import 'profile_Page.dart';
+import 'proximityData.dart';
+import 'doorContactData.dart';
+
 
 class DashboardPage extends StatefulWidget {
   //MyHomePage({Key key, this.title}) : super(key: key);
@@ -315,7 +318,8 @@ class _DashboardPageState extends State<DashboardPage> {
           actions: <Widget>[
             IconButton(
               icon: CircleAvatar(
-                backgroundImage: SeniorData.getSeniorImage(),
+                //backgroundImage: SeniorData.getSeniorImage(),
+                backgroundImage: getSeniorImage(),
                 backgroundColor: Colors.transparent,
               ),
             ),
@@ -417,28 +421,6 @@ class _DashboardPageState extends State<DashboardPage> {
               ],
             ),
           ),
-
-//      bottomNavigationBar: BottomNavigationBar(),
-//        bottomNavigationBar: Container(
-//          height: 40,
-//          //width: 56,
-//          margin: EdgeInsets.symmetric(vertical: 20, horizontal: 100),
-//          child: RaisedButton(
-//            onPressed: () {
-//              Navigator.push(
-//                context,
-//                MaterialPageRoute(builder: (context) => proximity()),
-//              );
-//            },
-//            child: Text('PROXIMITY',
-//                style: TextStyle(
-//                  fontSize: 15,
-//                  color: Colors.white,
-//                )),
-//            padding: EdgeInsets.fromLTRB(60, 0, 60, 0),
-//            color: Colors.red,
-//          ),
-//        ),
       ),
     );
   }
@@ -446,6 +428,7 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget _dashboard() {
     DateTime curDate = DateTime.now();
     String curDateStr = DateFormat('dd-MMM-yyyy').format(curDate);
+    int screenStatus = 0;
 
     return Column(
       mainAxisSize: MainAxisSize.max,
@@ -456,7 +439,7 @@ class _DashboardPageState extends State<DashboardPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text("dropdown placeholder"),
+              Text("Additional Information"),
               Text(
                 curDateStr,
                 style: TextStyle(color: Colors.black, fontSize: 16),
@@ -464,6 +447,7 @@ class _DashboardPageState extends State<DashboardPage> {
             ],
           ),
         ),
+
         _currentStatus(), //sos-section
         //TODO: camera view. I am not sure how to handle data that involves live video
         SizedBox(height:30),
@@ -473,10 +457,11 @@ class _DashboardPageState extends State<DashboardPage> {
           crossAxisCount: 2, //this makes it 2x2
           shrinkWrap: true,
           children: List.generate(
-            SeniorData.SensorSummaryList().length,
+            //SeniorData.SensorSummaryList().length,
+            sensorSummaries.length,
             (index) {
               return Center(
-                child: SensorInkwellCard(sensorSummary: SeniorData.SensorSummaryList()[index]),
+                child: SensorInkwellCard(sensorSummary: sensorSummaries[index]),//SeniorData.SensorSummaryList()[index]),
               );
             },
           ),
@@ -487,7 +472,7 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget _currentStatus() {
-    if (SeniorData.isStatusAlarming())
+    if (isStatusAlarming())//SeniorData.isStatusAlarming())
       return Column(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
@@ -533,7 +518,7 @@ class _DashboardPageState extends State<DashboardPage> {
         ],
       );
     else
-      return Text("Everything looks great!");
+      return SizedBox(height:20);//Text("Everything looks great!");
   }
 }
 
@@ -541,13 +526,11 @@ class SensorInkwellCard extends StatelessWidget {
   const SensorInkwellCard({Key key, this.sensorSummary}) : super(key: key);
   final SensorSummary sensorSummary;
   final Color greenIcon = const Color(0xFF13A806);
+  final Color redIcon = const Color(0xFFF50055);
+  final Color amberIcon = const Color(0xFFFFC107);
   final Color greenCard = const Color(0xFFEBF8DE);
-
-  //TODO: when doing for the below colors, get updated the color codes from figma
-//  final Color redIcon;
-//  final Color redCard;
-//  final Color yellowIcon;
-//  final Color yellowCard;
+  final Color redCard = const Color(0xFFFFCDD2);
+  final Color amberCard = const Color(0xFFFFF9C4);
 
   @override
   Widget build(BuildContext context) {
@@ -557,6 +540,17 @@ class SensorInkwellCard extends StatelessWidget {
       cardColor = greenCard;
       iconColor = greenIcon;
     }
+
+    if (sensorSummary.status == "red") {
+      cardColor = redCard;
+      iconColor = redIcon;
+    }
+
+    if (sensorSummary.status == "amber") {
+      cardColor = amberCard;
+      iconColor = amberIcon;
+    }
+
     //TODO: do the above for RED and AMBER colours/status
 
     final TextStyle sensorNameStyle = TextStyle(fontSize: 16, color: iconColor, fontWeight: FontWeight.bold);
@@ -572,6 +566,9 @@ class SensorInkwellCard extends StatelessWidget {
         }
         if (sensorSummary.title == "doorcontact") {
           Navigator.push(context, MaterialPageRoute(builder: (context) => doorContact()));
+        }
+        if (sensorSummary.title == "fallDetection") {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => bodyTemperature()));
         }
         //TODO: when other pages are done link to them as well
       },
@@ -606,31 +603,75 @@ class SensorInkwellCard extends StatelessWidget {
   }
 }
 
+
+
 /*
 THESE ARE DUMMY CLASSES AND METHODS (dummy external API)
  */
-class SeniorData {
-  static ImageProvider getSeniorImage() {
+
+ImageProvider getSeniorImage() {
 //    image: NetworkImage('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg');
-    return new AssetImage('images/senior_maytan.PNG');
-  }
-
-  static bool isStatusAlarming() {
-    return true; //if SOS for senior is triggered
-//    return false;
-  }
-
-  static List<SensorSummary> SensorSummaryList() {
-    List<SensorSummary> sensorSummaries = <SensorSummary>[
-      SensorSummary(title: 'proximity', iconImage: AssetImage('images/icons/Proximity.png'), details: "Kitchen", status: "green"),
-      SensorSummary(title: 'bodytemp', iconImage: AssetImage('images/icons/bodyTemp.png'), details: "38.8\u00b0C", status: "green"),
-      SensorSummary(title: 'Fall Detection', iconImage: AssetImage('images/icons/fallDetection.png'), details: "Stable", status: "green"),
-      SensorSummary(title: 'doorcontact', iconImage: AssetImage('images/icons/DoorContact.png'), details: "Closed", status: "green"),
-      //degree symbol unicode: \u00b0
-    ];
-    return sensorSummaries;
-  }
+  return new AssetImage('images/senior_maytan.PNG');
 }
+
+proxmityStatus(){
+  var status;
+  (((double.parse(proximityToday[0].time.split(' ')[0])-double.parse(proximityToday[1].time.split(' ')[0])).abs()>=3)
+      ? (status="red")
+      :(((double.parse(proximityToday[0].time.split(' ')[0])-double.parse(proximityToday[1].time.split(' ')[0])).abs()>=2)
+      ?(status='amber')
+      :(status= 'green')));
+  return status;
+}
+
+doorStatus(){
+  var status;
+  (((double.parse(doorToday[0].time.split(' ')[0])-double.parse(doorToday[1].time.split(' ')[0])).abs()>=4)
+      ? (status="red")
+      :(((double.parse(doorToday[0].time.split(' ')[0])-double.parse(doorToday[1].time.split(' ')[0])).abs()>=3)
+      ?(status='amber')
+      :(status= 'green')));
+  return status;
+}
+
+
+  List<SensorSummary> sensorSummaries = <SensorSummary>[
+    SensorSummary(
+        title: 'proximity',
+        iconImage: AssetImage('images/icons/Proximity.png'),
+        details: proximityToday[0].location,
+        status: proxmityStatus()
+        //details: "Kitchen",
+        //status:'green'
+    ),
+
+    SensorSummary(
+        title: 'doorcontact',
+        iconImage: AssetImage('images/icons/DoorContact.png'),
+        details: doorToday[0].door,
+        status: doorStatus()
+        //details: "Closed",
+        //status: "amber"
+    ),
+
+    //SensorSummary(title: 'bodytemp', iconImage: AssetImage('images/icons/bodyTemp.png'), details: "38.8\u00b0C", status: "green"),
+    //SensorSummary(title: 'fallDetection', iconImage: AssetImage('images/icons/fallDetection.png'), details: "Stable", status: "green"),
+
+    //degree symbol unicode: \u00b0
+  ];
+
+bool isStatusAlarming() {
+  for(int i=0;i<sensorSummaries.length;i++) {
+    if (sensorSummaries[i].status == 'red')
+      {
+        return true;
+      }
+    else
+      continue;
+  }
+  return false;
+}
+
 
 class SensorSummary {
   SensorSummary({this.title, this.details, this.iconImage, this.status});
@@ -639,3 +680,4 @@ class SensorSummary {
   String status;
   String details;
 }
+

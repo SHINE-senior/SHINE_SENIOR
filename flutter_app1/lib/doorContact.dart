@@ -205,7 +205,7 @@ switch_timeline(dropdown) {
   int open=0;
   int close=0;
   switch(dropdown){
-    case 'Today': day=today;
+    case 'Today': day=doorToday;
     for(int i=0;i<day.length;i++){
       if (day[i].door=='opened'){
         ++open;
@@ -229,7 +229,7 @@ switch_timeline(dropdown) {
       }
     }
     break;
-    default: day=today;
+    default: day=doorToday;
   };
 
   var counting=1;
